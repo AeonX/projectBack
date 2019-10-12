@@ -22,18 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CourseEntity {
 
-	@ManyToOne
-	@JoinColumn
-	private UserEntity userEntity;
-
-	public UserEntity getUserEntity() {
-		return userEntity;
-	}
-
-	public void setUserEntity(UserEntity userEntity) {
-		this.userEntity = userEntity;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
@@ -59,9 +47,6 @@ public class CourseEntity {
 		this.img_url = img_url;
 	}
 
-	public CourseEntity() {
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -85,6 +70,9 @@ public class CourseEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public CourseEntity() {
+	}
 
 	public CourseEntity(UserEntity userEntity, long id, String coursename, String description, String img_url) {
 		super();
@@ -101,8 +89,20 @@ public class CourseEntity {
 				+ description + ", img_url=" + img_url + "]";
 	}
 	
-	public CourseEntity(ModuleEntity... moduleEntity) {
-        this.moduleEntity = Stream.of(moduleEntity).collect(Collectors.toSet());
-        this.moduleEntity.forEach(x -> x.setCourseEntity(this));
-    }
+	@ManyToOne
+	@JoinColumn
+	private UserEntity userEntity;
+
+	public UserEntity getUserEntity() {
+		return userEntity;
+	}
+
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
+	
+//	public CourseEntity(ModuleEntity... moduleEntity) {
+//        this.moduleEntity = Stream.of(moduleEntity).collect(Collectors.toSet());
+//        this.moduleEntity.forEach(x -> x.setCourseEntity(this));
+//    }
 }
