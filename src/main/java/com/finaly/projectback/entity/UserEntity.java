@@ -28,12 +28,6 @@ public class UserEntity {
 	@Column(name = "user_id", updatable = false, nullable = false)
 	private long user_id;
 	
-//	
-//	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
-//    private ArrayList<CourseEntity> courseEntity;
-
-	
-
 	@Column(name = "firstname")
 	private String firstname;
 
@@ -49,11 +43,6 @@ public class UserEntity {
 	@Column(name = "pwd")
 	private String pwd;
 
-	public UserEntity() {
-
-	}
-
-
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "user_id", unique = true, nullable = false)
@@ -61,13 +50,9 @@ public class UserEntity {
 		return user_id;
 	}
 
-
-
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
-
-
 
 	public String getFirstname() {
 		return firstname;
@@ -108,6 +93,8 @@ public class UserEntity {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+	
+	public UserEntity() {}
 
 	public UserEntity(long user_id, String firstname, String lastname, String username, String email, String pwd) {
 		super();
