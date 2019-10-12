@@ -1,0 +1,12 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.finaly.projectback.service.SecurityConfig",
+      "sourceMethod": "public javax.sql.DataSource ds() "
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
