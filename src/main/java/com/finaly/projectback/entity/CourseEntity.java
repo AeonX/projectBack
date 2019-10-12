@@ -24,8 +24,8 @@ public class CourseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private long id;
+	@Column(name = "course_id", updatable = false, nullable = false)
+	private long course_id;
 
 	@Column(name = "coursename")
 	private String coursename;
@@ -47,12 +47,14 @@ public class CourseEntity {
 		this.img_url = img_url;
 	}
 
-	public long getId() {
-		return id;
+
+
+	public long getCourse_id() {
+		return course_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCourse_id(long course_id) {
+		this.course_id = course_id;
 	}
 
 	public String getCoursename() {
@@ -74,21 +76,24 @@ public class CourseEntity {
 	public CourseEntity() {
 	}
 
-	public CourseEntity(UserEntity userEntity, long id, String coursename, String description, String img_url) {
+
+	
+	public CourseEntity(long course_id, String coursename, String description, String img_url, UserEntity userEntity) {
 		super();
-		this.userEntity = userEntity;
-		this.id = id;
+		this.course_id = course_id;
 		this.coursename = coursename;
 		this.description = description;
 		this.img_url = img_url;
+		this.userEntity = userEntity;
 	}
+
 
 	@Override
 	public String toString() {
-		return "CourseEntity [userEntity=" + userEntity + ", id=" + id + ", coursename=" + coursename + ", description="
-				+ description + ", img_url=" + img_url + "]";
+		return "CourseEntity [course_id=" + course_id + ", coursename=" + coursename + ", description=" + description
+				+ ", img_url=" + img_url + ", moduleEntity=" + moduleEntity + ", userEntity=" + userEntity + "]";
 	}
-	
+
 	@ManyToOne
 	@JoinColumn
 	private UserEntity userEntity;
@@ -101,8 +106,8 @@ public class CourseEntity {
 		this.userEntity = userEntity;
 	}
 	
-//	public CourseEntity(ModuleEntity... moduleEntity) {
-//        this.moduleEntity = Stream.of(moduleEntity).collect(Collectors.toSet());
-//        this.moduleEntity.forEach(x -> x.setCourseEntity(this));
-//    }
+	public CourseEntity(ModuleEntity... moduleEntity) {
+        this.moduleEntity = Stream.of(moduleEntity).collect(Collectors.toSet());
+        this.moduleEntity.forEach(x -> x.setCourseEntity(this));
+    }
 }

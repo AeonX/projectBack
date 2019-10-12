@@ -11,8 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "web_module")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ModuleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,8 +31,8 @@ public class ModuleEntity {
 	@Column(name = "description")
 	private String description;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "course_id", foreignKey = @ForeignKey(name = "web_module_ibfk_1"))
+	@ManyToOne
+	@JoinColumn
 	private CourseEntity courseEntity;
 
 	public ModuleEntity() {}
