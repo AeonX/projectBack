@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -100,4 +102,18 @@ public class LectureEntity {
 				+ lecture_description + ", lecture_length=" + lecture_length + ", course_id=" + course_id
 				+ ", module_id=" + module_id + "]";
 	}	
+	
+	
+	///////////////////////////////////////
+	@ManyToOne
+	@JoinColumn
+	private ModuleEntity moduleEntity;
+
+	public ModuleEntity getUserEntity() {
+		return moduleEntity;
+	}
+
+	public void setModuleEntity(ModuleEntity moduleEntity) {
+		this.moduleEntity = moduleEntity;
+	}
 }

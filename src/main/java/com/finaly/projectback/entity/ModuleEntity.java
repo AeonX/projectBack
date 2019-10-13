@@ -1,5 +1,10 @@
 package com.finaly.projectback.entity;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -89,4 +95,12 @@ public class ModuleEntity {
 		return "ModuleEntity [module_id=" + module_id + ", module_name=" + module_name + ", module_code=" + module_code
 				+ ", description=" + description + ", courseEntity=" + courseEntity + "]";
 	}
+	
+	@OneToMany(mappedBy = "module_id", cascade = CascadeType.ALL)
+    private Set<LectureEntity> lectureEntity;
+	
+	public ModuleEntity(LectureEntity... lectureEntity) {
+        this.lectureEntity = Stream.of(lectureEntity).collect(Collectors.toSet());
+        this.lectureEntity.forEach(x -> x.setModuleEntity(this));
+    }
 }
