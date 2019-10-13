@@ -1,5 +1,7 @@
 package com.finaly.projectback.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,6 +42,9 @@ public class ModuleEntity {
 
 	public ModuleEntity() {}
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "module_id", unique = true, nullable = false)
 	public long getModule_id() {
 		return module_id;
 	}
@@ -95,6 +100,9 @@ public class ModuleEntity {
 		return "ModuleEntity [module_id=" + module_id + ", module_name=" + module_name + ", module_code=" + module_code
 				+ ", description=" + description + ", courseEntity=" + courseEntity + "]";
 	}
+	
+	
+	//////////////////////////////////////////////
 	
 	@OneToMany(mappedBy = "module_id", cascade = CascadeType.ALL)
     private Set<LectureEntity> lectureEntity;

@@ -15,8 +15,8 @@ public class LectureEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false) 
-	private long id;
+	@Column(name = "lecture_id", updatable = false, nullable = false) 
+	private long lecture_id;
 	
 	@Column(name = "lecture_name")
 	private String lecture_name;
@@ -30,20 +30,21 @@ public class LectureEntity {
 	@Column(name = "course_id")
 	private int course_id;
 	
-	@Column(name = "module_id")
-	private int module_id;
-	
 	public LectureEntity() {
 		
 	}
 
-	public long getId() {
-		return id;
+	public long getLecture_id() {
+		return lecture_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+
+
+	public void setLecture_id(long lecture_id) {
+		this.lecture_id = lecture_id;
 	}
+
+
 
 	public String getLecture_name() {
 		return lecture_name;
@@ -76,40 +77,41 @@ public class LectureEntity {
 	public void setCourse_id(int course_id) {
 		this.course_id = course_id;
 	}
+	
+	
 
-	public int getModule_id() {
-		return module_id;
+
+
+
+	@Override
+	public String toString() {
+		return "LectureEntity [lecture_id=" + lecture_id + ", lecture_name=" + lecture_name + ", lecture_description="
+				+ lecture_description + ", lecture_length=" + lecture_length + ", course_id=" + course_id
+				+ ", moduleEntity=" + moduleEntity + "]";
 	}
 
-	public void setModule_id(int module_id) {
-		this.module_id = module_id;
-	}
-
-	public LectureEntity(long id, String lecture_name, String lecture_description, String lecture_length, int course_id,
-			int module_id) {
+	public LectureEntity(long lecture_id, String lecture_name, String lecture_description, String lecture_length,
+			int course_id, ModuleEntity moduleEntity) {
 		super();
-		this.id = id;
+		this.lecture_id = lecture_id;
 		this.lecture_name = lecture_name;
 		this.lecture_description = lecture_description;
 		this.lecture_length = lecture_length;
 		this.course_id = course_id;
-		this.module_id = module_id;
+		this.moduleEntity = moduleEntity;
 	}
 
-	@Override
-	public String toString() {
-		return "LectureModel [id=" + id + ", lecture_name=" + lecture_name + ", lecture_description="
-				+ lecture_description + ", lecture_length=" + lecture_length + ", course_id=" + course_id
-				+ ", module_id=" + module_id + "]";
-	}	
-	
-	
+
+
+
+
+
 	///////////////////////////////////////
 	@ManyToOne
 	@JoinColumn
 	private ModuleEntity moduleEntity;
 
-	public ModuleEntity getUserEntity() {
+	public ModuleEntity getModuleEntity() {
 		return moduleEntity;
 	}
 
