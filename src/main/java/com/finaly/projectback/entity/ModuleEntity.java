@@ -1,14 +1,19 @@
 package com.finaly.projectback.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,9 +22,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "web_module")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ModuleEntity {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "module_id", updatable = false, nullable = false) 
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "module_id", updatable = false, nullable = false)
 	private long module_id;
 	
 	@Column(name = "module_name")
@@ -32,7 +38,7 @@ public class ModuleEntity {
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name="course_id")
 	private CourseEntity courseEntity;
 
 	public ModuleEntity() {}
@@ -92,4 +98,12 @@ public class ModuleEntity {
 		return "ModuleEntity [module_id=" + module_id + ", module_name=" + module_name + ", module_code=" + module_code
 				+ ", description=" + description + ", courseEntity=" + courseEntity + "]";
 	}
+	
+	@OneToMany(mappedBy = "module_id", cascade = CascadeType.ALL, targetEntity=ModuleEntity.class)
+    private Set<LectureEntity> lectureEntity;
+	
+	public ModuleEntity(LectureEntity... lectureEntity) {
+        this.lectureEntity = Stream.of(lectureEntity).collect(Collectors.toSet());
+        this.lectureEntity.forEach(x -> x.setModuleEntity(this));
+    }
 }

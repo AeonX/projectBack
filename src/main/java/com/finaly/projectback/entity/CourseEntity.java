@@ -1,5 +1,7 @@
 package com.finaly.projectback.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,7 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class CourseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "course_id", updatable = false, nullable = false)
 	private long course_id;
 
@@ -36,7 +37,7 @@ public class CourseEntity {
 	@Column(name = "img_url")
 	private String img_url;
 	
-	@OneToMany(mappedBy = "module_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "course_id", cascade = CascadeType.ALL, targetEntity=CourseEntity.class)
     private Set<ModuleEntity> moduleEntity;
 
 	public String getImg_url() {
@@ -95,7 +96,7 @@ public class CourseEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name="user_id")
 	private UserEntity userEntity;
 
 	public UserEntity getUserEntity() {
