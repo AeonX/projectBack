@@ -18,51 +18,15 @@ import com.finaly.projectback.repo.UserRepository;
 @RestController
 @CrossOrigin(origins = "http://localhost:4201")
 public class UserController {
-
-//	boolean userExist = false;
-//
+	
 	// standard constructors
 	@Autowired
 	private UserRepository userRepository;
-//
-//	@GetMapping("/test")
-//	@ResponseBody
-//	public String test() {
-//		return "test";
-//	}
-//
-//    @GetMapping("/users")
-//    @ResponseBody
-//    public List<UserEntity> getUsers() {
-//    	System.out.println("entered");
-//        return (List<UserEntity>) userRepository.findAll();
-//    }
-//    
+
     @GetMapping("/users")
     public List<UserEntity> getByUsername() {
     	return (List<UserEntity>) userRepository.findAll();
     }
- 
-  //  @GetMapping("/users")
-//	@PostMapping(value = "/users")
-//	public ResponseEntity<UserModel> findByUsername(@RequestBody UserModel user) {
-//		UserModel searchUser = userRepository.findByUsername(user.getUsername());
-//		UserModel emptyObj = new UserModel();
-//
-//		if (searchUser != null) {
-//			return ResponseEntity.ok(searchUser);
-//		}
-//		return ResponseEntity.ok(emptyObj);
-//	}
-
-//	@GetMapping(value = "/users/")
-//	public boolean userExist() {
-//
-//		if (userExist != false) {
-//			return true;
-//		}
-//		return false;
-//	}
 
 	@RequestMapping(produces = "application/json")
 	@GetMapping({ "/validateLogin" })
