@@ -1,5 +1,7 @@
 package com.finaly.projectback.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,7 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class CourseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private long id;
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "course_id", updatable = false, nullable = false)
+	private long course_id;
 
 	@Column(name = "coursename")
 	private String coursename;
@@ -36,7 +37,7 @@ public class CourseEntity {
 	@Column(name = "img_url")
 	private String img_url;
 	
-	@OneToMany(mappedBy = "module_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "course_id", cascade = CascadeType.ALL, targetEntity=CourseEntity.class)
     private Set<ModuleEntity> moduleEntity;
 
 	public String getImg_url() {
@@ -47,12 +48,14 @@ public class CourseEntity {
 		this.img_url = img_url;
 	}
 
-	public long getId() {
-		return id;
+
+
+	public long getCourse_id() {
+		return course_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCourse_id(long course_id) {
+		this.course_id = course_id;
 	}
 
 	public String getCoursename() {
@@ -74,23 +77,26 @@ public class CourseEntity {
 	public CourseEntity() {
 	}
 
-	public CourseEntity(UserEntity userEntity, long id, String coursename, String description, String img_url) {
+
+	
+	public CourseEntity(long course_id, String coursename, String description, String img_url, UserEntity userEntity) {
 		super();
-		this.userEntity = userEntity;
-		this.id = id;
+		this.course_id = course_id;
 		this.coursename = coursename;
 		this.description = description;
 		this.img_url = img_url;
+		this.userEntity = userEntity;
 	}
+
 
 	@Override
 	public String toString() {
-		return "CourseEntity [userEntity=" + userEntity + ", id=" + id + ", coursename=" + coursename + ", description="
-				+ description + ", img_url=" + img_url + "]";
+		return "CourseEntity [course_id=" + course_id + ", coursename=" + coursename + ", description=" + description
+				+ ", img_url=" + img_url + ", moduleEntity=" + moduleEntity + ", userEntity=" + userEntity + "]";
 	}
-	
+
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name="user_id")
 	private UserEntity userEntity;
 
 	public UserEntity getUserEntity() {
@@ -101,8 +107,8 @@ public class CourseEntity {
 		this.userEntity = userEntity;
 	}
 	
-//	public CourseEntity(ModuleEntity... moduleEntity) {
-//        this.moduleEntity = Stream.of(moduleEntity).collect(Collectors.toSet());
-//        this.moduleEntity.forEach(x -> x.setCourseEntity(this));
-//    }
+	public CourseEntity(ModuleEntity... moduleEntity) {
+        this.moduleEntity = Stream.of(moduleEntity).collect(Collectors.toSet());
+        this.moduleEntity.forEach(x -> x.setCourseEntity(this));
+    }
 }

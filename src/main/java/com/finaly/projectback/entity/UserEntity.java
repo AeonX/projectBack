@@ -10,7 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,12 +18,12 @@ import javax.persistence.Table;
 @Table(name = "web_user")
 public class UserEntity {
 	
-	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, targetEntity=UserEntity.class)
     private Set<CourseEntity> courseEntity;
 	
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "user_id", updatable = false, nullable = false)
 	private long user_id;
 	
@@ -43,9 +42,6 @@ public class UserEntity {
 	@Column(name = "pwd")
 	private String pwd;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "user_id", unique = true, nullable = false)
 	public long getUser_id() {
 		return user_id;
 	}

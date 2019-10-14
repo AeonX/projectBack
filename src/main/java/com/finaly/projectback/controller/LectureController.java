@@ -28,7 +28,7 @@ public class LectureController {
 	
 	@PostMapping("/lectures")
 	void addLecture(@RequestBody LectureEntity lecture) {
-		System.out.println(lecture);
+		System.out.println(lecture + " testing");
 		lectureRepository.save(lecture);
 	}
 	
