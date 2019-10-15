@@ -11,39 +11,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.finaly.projectback.entity.UserEntity;
-import com.finaly.projectback.entity.UserStatusEntity;
+import com.finaly.projectback.model.User;
+import com.finaly.projectback.model.UserStatus;
 import com.finaly.projectback.repo.UserRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4201")
 public class UserController {
-	
-	// standard constructors
+
 	@Autowired
 	private UserRepository userRepository;
-
-    @GetMapping("/users")
-    public List<UserEntity> getByUsername() {
-    	return (List<UserEntity>) userRepository.findAll();
-    }
-
-	@RequestMapping(produces = "application/json")
-	@GetMapping({ "/validateLogin" })
-	public UserStatusEntity validateLogin() {
-		System.out.println("entered");
-		return new UserStatusEntity("User successfully authenticated");
-	}
 	
-	@RequestMapping("/using")
-    public String showUserMsg()
-    {
-        return "User has logged in!!!";
-
-    }
+	@GetMapping("/users")
+	@ResponseBody
+	public List<User> getUsers() {
+		return (List<User>) userRepository.findAll();
+	}
 
 	@PostMapping("/users")
-	void addUser(@RequestBody UserEntity user) {
+	void addRole(@RequestBody User user) {
 		userRepository.save(user);
+	}
+	
+	@RequestMapping(produces = "application/json")
+	@GetMapping({ "/validateLogin" })
+	public UserStatus validateLogin() {
+		return new UserStatus("User successfully authenticated");
 	}
 }

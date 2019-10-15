@@ -10,26 +10,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.finaly.projectback.entity.LectureEntity;
+import com.finaly.projectback.model.Lecture;
 import com.finaly.projectback.repo.LectureRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4201")
 public class LectureController {
-	
+
 	@Autowired
 	private LectureRepository lectureRepository;
 	
 	@GetMapping("/lectures")
 	@ResponseBody
-	public List<LectureEntity> getLectures() {
-		return (List<LectureEntity>) lectureRepository.findAll();
+	public List<Lecture> getLectures() {
+		return (List<Lecture>) lectureRepository.findAll();
 	}
-	
+
 	@PostMapping("/lectures")
-	void addLecture(@RequestBody LectureEntity lecture) {
-		System.out.println(lecture + " testing");
+	void addLecture(@RequestBody Lecture lecture) {
 		lectureRepository.save(lecture);
 	}
-	
 }

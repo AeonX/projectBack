@@ -1,12 +1,9 @@
 package com.finaly.projectback.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import com.finaly.projectback.entity.UserEntity;
+import com.finaly.projectback.model.User;
 
-@Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
-	public UserEntity findByUsername(String username);
-	//public UserModel sendUsername();
+public interface UserRepository extends JpaRepository<User, Long>  {
+
 }

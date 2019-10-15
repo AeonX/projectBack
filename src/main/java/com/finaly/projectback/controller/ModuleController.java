@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.finaly.projectback.entity.CourseEntity;
-import com.finaly.projectback.entity.ModuleEntity;
-import com.finaly.projectback.entity.UserEntity;
+import com.finaly.projectback.model.Module;
 import com.finaly.projectback.repo.ModuleRepository;
 
 @RestController
@@ -24,17 +22,12 @@ public class ModuleController {
 	
 	@GetMapping("/modules")
 	@ResponseBody
-	public List<ModuleEntity> getModules() {
-		return (List<ModuleEntity>) moduleRepository.findAll();
+	public List<Module> getModules() {
+		return (List<Module>) moduleRepository.findAll();
 	}
 
 	@PostMapping("/modules")
-	void addModule(@RequestBody ModuleEntity module) {
-		ModuleEntity moduleEntity = new ModuleEntity();
-		CourseEntity courseEntity = new CourseEntity();
-		moduleEntity.setCourseEntity(courseEntity);
-		
+	void addModule(@RequestBody Module module) {
 		moduleRepository.save(module);
 	}
 }
-
