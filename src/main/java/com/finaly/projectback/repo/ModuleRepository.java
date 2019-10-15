@@ -1,11 +1,9 @@
 package com.finaly.projectback.repo;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.finaly.projectback.entity.ModuleEntity;
+import com.finaly.projectback.model.Module;
 
-@Repository
-public interface ModuleRepository extends CrudRepository<ModuleEntity, Long> {
+public interface ModuleRepository extends JpaRepository<Module, Long>  {
 
 }

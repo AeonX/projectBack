@@ -1,9 +1,9 @@
-package com.finaly.projectback.entity;
+package com.finaly.projectback.model;
 
-public class UserStatusEntity {
+public class UserStatus {
 	private String status;
 	
-	public UserStatusEntity(String status) {
+	public UserStatus(String status) {
 		this.status = status;
 	}
 	
