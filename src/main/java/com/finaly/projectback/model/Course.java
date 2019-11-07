@@ -136,13 +136,6 @@ public class Course {
 		courseEnrollment.setCourseEnrollment(this);
 	}
 	
-	@OneToMany(mappedBy = "courseQuizQuestion")
-	private List<QuizQuestion> courseQuizQuestions = new ArrayList<QuizQuestion>();
-	
-	public void addCourseQuizQuestion(QuizQuestion courseQuizQuestion) {
-		this.courseQuizQuestions.add(courseQuizQuestion);
-		courseQuizQuestion.setCourseQuizQuestion(this);
-	}
 	
 	@OneToMany(mappedBy = "courseQuizAnswer")
 	private List<UserQuizAnswer> courseQuizAnswers = new ArrayList<UserQuizAnswer>();
@@ -151,4 +144,12 @@ public class Course {
 		this.courseQuizAnswers.add(courseQuizAnswer);
 		courseQuizAnswer.setCourseQuizAnswer(this);
 	}	
+	
+	@OneToMany(mappedBy = "courseQuiz")
+	private List<Quiz> courseQuizzes = new ArrayList<Quiz>();
+	
+	public void addCourseQuiz(Quiz courseQuiz) {
+		this.courseQuizzes.add(courseQuiz);
+		courseQuiz.setCourseQuiz(this);
+	}
 }

@@ -29,12 +29,16 @@ public class QuizQuestion {
 	private String question;
 	
 	@ManyToOne
-	@JoinColumn(name="course_id")
-	private Course courseQuizQuestion;
-	
-	@ManyToOne
-	@JoinColumn(name="module_id")
-	private Module moduleQuizQuestion;
+	@JoinColumn(name="quiz_id")
+	private Quiz quizQuizQuestion;
+
+	public Quiz getQuizQuizQuestion() {
+		return quizQuizQuestion;
+	}
+
+	public void setQuizQuizQuestion(Quiz quizQuizQuestion) {
+		this.quizQuizQuestion = quizQuizQuestion;
+	}
 
 	public Long getQuiz_question_id() {
 		return quiz_question_id;
@@ -51,37 +55,23 @@ public class QuizQuestion {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-
-	public Course getCourseQuizQuestion() {
-		return courseQuizQuestion;
-	}
-
-	public void setCourseQuizQuestion(Course courseQuizQuestion) {
-		this.courseQuizQuestion = courseQuizQuestion;
-	}
-
-	public Module getModuleQuizQuestion() {
-		return moduleQuizQuestion;
-	}
-
-	public void setModuleQuizQuestion(Module moduleQuizQuestion) {
-		this.moduleQuizQuestion = moduleQuizQuestion;
-	}
-
-	public QuizQuestion(Long quiz_question_id, String question, Course courseQuizQuestion, Module moduleQuizQuestion) {
-		super();
-		this.quiz_question_id = quiz_question_id;
-		this.question = question;
-		this.courseQuizQuestion = courseQuizQuestion;
-		this.moduleQuizQuestion = moduleQuizQuestion;
-	}
+	
+	
 
 	@Override
 	public String toString() {
-		return "QuizQuestion [quiz_question_id=" + quiz_question_id + ", question=" + question + ", courseQuizQuestion="
-				+ courseQuizQuestion + ", moduleQuizQuestion=" + moduleQuizQuestion + "]";
+		return "QuizQuestion [quiz_question_id=" + quiz_question_id + ", question=" + question + ", quizQuizQuestion="
+				+ quizQuizQuestion + ", quizQuestions=" + quizQuestions + "]";
 	}
-	
+
+	public QuizQuestion(Long quiz_question_id, String question, Quiz quizQuizQuestion, List<QuizAnswer> quizQuestions) {
+		super();
+		this.quiz_question_id = quiz_question_id;
+		this.question = question;
+		this.quizQuizQuestion = quizQuizQuestion;
+		this.quizQuestions = quizQuestions;
+	}
+
 	@OneToMany(mappedBy = "quizQuestion")
 	private List<QuizAnswer> quizQuestions = new ArrayList<QuizAnswer>();
 	

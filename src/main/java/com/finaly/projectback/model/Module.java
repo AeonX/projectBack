@@ -101,14 +101,6 @@ public class Module {
 		lecture.setModule(this);
 	}
 	
-	@OneToMany(mappedBy = "moduleQuizQuestion")
-	private List<QuizQuestion> moduleQuizQuestions = new ArrayList<QuizQuestion>();
-	
-	public void addModuleQuizQuestion(QuizQuestion moduleQuizQuestion) {
-		this.moduleQuizQuestions.add(moduleQuizQuestion);
-		moduleQuizQuestion.setModuleQuizQuestion(this);
-	}
-	
 	@OneToMany(mappedBy = "moduleQuizAnswer")
 	private List<UserQuizAnswer> moduleQuizAnswers = new ArrayList<UserQuizAnswer>();
 	
@@ -116,6 +108,14 @@ public class Module {
 		this.moduleQuizAnswers.add(moduleQuizAnswer);
 		moduleQuizAnswer.setModuleQuizAnswer(this);
 	}	
+	
+	@OneToMany(mappedBy = "moduleQuiz")
+	private List<Quiz> moduleQuizzes = new ArrayList<Quiz>();
+	
+	public void addModuleQuiz(Quiz moduleQuiz) {
+		this.moduleQuizzes.add(moduleQuiz);
+		moduleQuiz.setModuleQuiz(this);
+	}
 	
 	
 }
