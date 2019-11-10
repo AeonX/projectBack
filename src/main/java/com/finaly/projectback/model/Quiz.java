@@ -50,6 +50,7 @@ public class Quiz {
 	}
 
 	public Course getCourseQuiz() {
+		System.out.println(courseQuiz + " poiu");
 		return courseQuiz;
 	}
 
@@ -64,9 +65,13 @@ public class Quiz {
 	public void setModuleQuiz(Module moduleQuiz) {
 		this.moduleQuiz = moduleQuiz;
 	}
+	
+	public Quiz() {
+	}
 
 	public Quiz(Long quiz_id, String quiz_name, Course courseQuiz, Module moduleQuiz) {
 		super();
+		System.out.println("constructor " + courseQuiz);
 		this.quiz_id = quiz_id;
 		this.quiz_name = quiz_name;
 		this.courseQuiz = courseQuiz;
@@ -78,14 +83,14 @@ public class Quiz {
 		return "Quiz [quiz_id=" + quiz_id + ", quiz_name=" + quiz_name + ", courseQuiz=" + courseQuiz + ", moduleQuiz="
 				+ moduleQuiz + "]";
 	}
-	
-	@OneToMany(mappedBy = "quizQuizQuestion")
-	private List<QuizQuestion> quizQuizQuestions = new ArrayList<QuizQuestion>();
-	
-	public void addCourseQuiz(QuizQuestion quizQuizQuestion) {
-		this.quizQuizQuestions.add(quizQuizQuestion);
-		quizQuizQuestion.setQuizQuizQuestion(this);
-	}
-	
+//	
+//	@OneToMany(mappedBy = "quizQuizQuestion")
+//	private List<QuizQuestion> quizQuizQuestions = new ArrayList<QuizQuestion>();
+//	
+//	public void addCourseQuiz(QuizQuestion quizQuizQuestion) {
+//		this.quizQuizQuestions.add(quizQuizQuestion);
+//		quizQuizQuestion.setQuizQuizQuestion(this);
+//	}
+//	
 	
 }

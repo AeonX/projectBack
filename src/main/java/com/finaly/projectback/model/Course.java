@@ -149,6 +149,7 @@ public class Course {
 	private List<Quiz> courseQuizzes = new ArrayList<Quiz>();
 	
 	public void addCourseQuiz(Quiz courseQuiz) {
+		System.out.println("quizing " + courseQuiz);
 		this.courseQuizzes.add(courseQuiz);
 		courseQuiz.setCourseQuiz(this);
 	}
